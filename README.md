@@ -36,7 +36,7 @@ The first thing to do is make extra package sources available. I added these lin
 Important note: the trailing slashes at the end of those URLs are required; without them, Emacs won't be able to download the extra package lists.
 
 Start Emacs, then use `M-x` to enter the following commands:
-```
+```lisp
 package-refresh-contents
 package-install RET evil-mode
 ```
@@ -44,7 +44,7 @@ package-install RET evil-mode
 Run `m-x evil-mode RET` to enter Evil mode, and at this point, you'll then be able to use hjkl and all the core Vim functionality, including using `:qa` to exit Emacs.
 
 After exiting, Emacs will have added some stuff to your `~/.emacs`:
-```
+```lisp
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -62,7 +62,7 @@ After exiting, Emacs will have added some stuff to your `~/.emacs`:
 At this point I'm not quite sure what the purpose of this is.
 
 Moving forward, anything I add to `~/.emacs` will be done before the code Emacs has generated. The next step is to permanently enable Evil mode:
-```
+```lisp
 (require 'evil)
 (evil-mode t)
 ```
@@ -72,7 +72,7 @@ If Emacs is now restarted, Evil mode should be enabled.
 ### Add the 'use-package' Macro
 
 The [use-package macro](https://github.com/jwiegley/use-package) simplifies installation and configuration of packages. Enable it with the following code:
-```
+```lisp
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -81,3 +81,38 @@ The [use-package macro](https://github.com/jwiegley/use-package) simplifies inst
 ```
 
 Restarting Emacs should install it.
+
+There's some good general documentation on package management [here](https://www.emacswiki.org/emacs/InstallingPackages). This also details how to setup a proxy to pull the package sources, which is useful if you're in a corporate environment.
+
+## Helm
+
+Helm is a package that provides the functionality you get from Ctrl-P in Vim, and much beyond. It can be enabled with the `use-package` macro:
+```lisp
+(use-package helm
+  :ensure t
+  :config
+  (require 'helm-config)
+  (helm-mode 1))
+```
+
+The `:ensure` symbol will install the package if it doesn't exist, and the `:config` symbol is used to apply any package-specific configuration. The `require 'helm-config` setting provides all the default key bindings, presumably among lots of other things.
+
+### Use and Configuration
+
+As in the above configuration snippet, simply enabling Helm mode doesn't do very much. Even the official documentation doesn't make it obvious how you actually launch and use it. Expand the configuration with this:
+```lisp
+(use-package helm
+  :ensure t
+  :config
+  (require 'helm-config)
+  (global-set-key (kbd "C-c h") 'helm-command-prefix)
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (define-key global-map [remap find-file] 'helm-find-files)
+  (define-key global-map [remap occur] 'helm-occur)
+  (helm-autoresize-mode 1)
+  (helm-mode 1))
+```
+
+Rebinding the default `M-x` behaviour to Helm's equivalent makes it much easier to view and launch all the commands available throughout all of Emacs. The `helm-command-prefix` command, launched by using `C-c h`, gives you a bunch of shortcuts for running Helm commands. For example, `C-c h f` will launch `helm-find-files`. I'm just learning these as I go and adding them to a cheat sheet as I discover them.
+
+After you understand the basics around how to launch and configure Helm, [this article](https://tuhdo.github.io/helm-intro.html) is very useful for describing the functionality available.
