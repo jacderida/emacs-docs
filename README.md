@@ -116,3 +116,13 @@ As in the above configuration snippet, simply enabling Helm mode doesn't do very
 Rebinding the default `M-x` behaviour to Helm's equivalent makes it much easier to view and launch all the commands available throughout all of Emacs. The `helm-command-prefix` command, launched by using `C-c h`, gives you a bunch of shortcuts for running Helm commands. For example, `C-c h f` will launch `helm-find-files`. I'm just learning these as I go and adding them to a cheat sheet as I discover them.
 
 After you understand the basics around how to launch and configure Helm, [this article](https://tuhdo.github.io/helm-intro.html) is very useful for describing the functionality available.
+
+## Reference and Useful Resources
+
+A collection of resources I've found useful at various points:
+
+* [Aaron Bieber's talk that initially inspired me to switch](https://www.youtube.com/watch?v=JWD1Fpdd4Pc)
+* [Aaron Bieber's blog post for getting started with Evil](https://blog.aaronbieber.com/2015/05/24/from-vim-to-emacs-in-fourteen-days.html)
+* [Another very useful blog post on Evil configuration by Aaron Bieber](https://blog.aaronbieber.com/2016/01/23/living-in-evil.html)
+* [Evil Guide](https://github.com/noctuid/evil-guide)
+* [Long blog post on switching from Vim to Emacs](https://juanjoalvarez.net/es/detail/2014/sep/19/vim-emacsevil-chaotic-migration-guide/) (This post isn't very well structured, but nonetheless it's still very useful.)
