@@ -68,3 +68,16 @@ Moving forward, anything I add to `~/.emacs` will be done before the code Emacs 
 ```
 
 If Emacs is now restarted, Evil mode should be enabled.
+
+### Add the 'use-package' Macro
+
+The [use-package macro](https://github.com/jwiegley/use-package) simplifies installation and configuration of packages. Enable it with the following code:
+```
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
+```
+
+Restarting Emacs should install it.
